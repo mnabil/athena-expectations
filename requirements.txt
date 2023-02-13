@@ -1,0 +1,2 @@
+pyathena[SQLAlchemy]
+great-expectations==0.15.5

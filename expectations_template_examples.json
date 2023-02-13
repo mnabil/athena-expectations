@@ -1,0 +1,86 @@
+[
+  {
+    "expectation_type": "expect_column_values_to_not_be_null",
+    "kwargs": {
+      "column": "col",
+      "mostly": 1.0
+    },
+    "meta": {
+      "notes": {
+        "content": "checking if payment column has no Nulls",
+        "format": "markdown"
+      }
+    }
+  },
+  {
+    "expectation_type": "expect_column_values_to_not_be_null",
+    "kwargs": {
+      "column": "col",
+      "mostly": 1.0
+    },
+    "meta": {
+      "notes": {
+        "content": "checking if sku column has no Nulls",
+        "format": "markdown"
+      }
+    }
+  },
+  {
+    "expectation_type": "expect_column_distinct_values_to_be_in_set",
+    "kwargs": {
+      "column": "col",
+      "mostly": 1.0,
+      "value_set": [
+        "val1",
+        "val2"
+      ]
+    },
+    "meta": {
+      "notes": {
+        "content": "please check if column values are in this set!",
+        "format": "markdown"
+      }
+    }
+  },
+  {
+    "expectation_type": "expect_table_column_count_to_equal",
+    "kwargs": {
+      "value": 27
+    },
+    "meta": {
+      "notes": {
+        "content": "check if number of columns is = to",
+        "format": "markdown"
+      }
+    }
+  },
+  {
+    "expectation_type": "expect_column_values_to_be_between",
+    "kwargs": {
+      "column": "created_at_ts",
+      "min_value": "2020-01-01",
+      "parse_strings_as_datetimes": true,
+      "stric_max": false,
+      "stric_min": false
+    },
+    "meta": {
+      "notes": {
+        "content": "expect minimum date to be 2020-01-01",
+        "format": "markdown"
+      }
+    }
+  },
+  {
+    "expectation_type": "expect_column_values_to_be_unique",
+    "kwargs": {
+      "column": "col",
+      "mostly": 1.0
+    },
+    "meta": {
+      "notes": {
+        "content": "checking if sessionid column has no Nulls",
+        "format": "markdown"
+      }
+    }
+  }
+]
