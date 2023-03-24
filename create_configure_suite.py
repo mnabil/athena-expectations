@@ -8,41 +8,23 @@ from great_expectations.exceptions import DataContextError
 import json
 import argparse
 import logging
-from utils.utils import get_assetNames
 import sys
+from utils import CustomArgParser, get_assetNames
 
-
+# logging config
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 handler = logging.StreamHandler(sys.stdout)
 logger.addHandler(handler)
 
-#initializing GE context
+# READ CLI ARGS
+c = CustomArgParser()
+config = c.get_interface_args(__file__)
+expectation_suite_name = config.suite_name or config.asset_name
+expectations_json = config.expectations_file or "expectations_template_examples.json"
+
+# initializing GE context
 context = ge.data_context.DataContext()
-
-# USE IN CLI
-my_parser = argparse.ArgumentParser(
-    description='Create Your Expectations Suite ex: python create_configure_suite --asset_name view1')
-my_parser.add_argument(
-    "--asset_name",  # name on the CLI - drop the `--` for positional/required parameters
-    nargs=None,  # str not an array
-    type=str,
-    required=True
-)
-
-my_parser.add_argument(
-    # name on the CLI - drop the `--` for positional/required parameters
-    "--expectations_file",
-    nargs=None,  # str not an array
-    type=str,
-    default="expectations_template_examples.json",  # default if nothing is provided
-)
-
-args = my_parser.parse_args()
-asset_name = args.asset_name
-
-
-expectation_suite_name = args.asset_name
 
 try:
     # get this suit , if you found it
@@ -62,7 +44,7 @@ except DataContextError:
         f'Created ExpectationSuite "{suite.expectation_suite_name}".')
 
 try:
-    with open(args.expectations_file, 'r') as f:
+    with open(expectations_json, 'r') as f:
         expectations_list = json.load(f)
 except Exception as e:
     logger.error("Parsing json file\nException: %s" % e)
@@ -79,11 +61,11 @@ for exp in expectations_list:
 
 # ADD suite expectatation
 context.save_expectation_suite(
-    expectation_suite=expectation_suite_name,
+    expectation_suite=suite,
     expectation_suite_name=expectation_suite_name)
 
 suite_identifier = ExpectationSuiteIdentifier(
-    expectation_suite_name=expectation_suite_name)  # hold my suite
+    expectation_suite_name=expectation_suite_name)
 # build data docs again after adding expectations
 context.build_data_docs(resource_identifiers=[suite_identifier])
 # open data docs for me to view
