@@ -3,7 +3,7 @@ import great_expectations as ge
 from great_expectations.exceptions import DataContextError
 import logging
 import argparse
-from utils import CustomArgParser, get_assetNames
+from utils import CustomArgParser
 import sys
 
 logger = logging.getLogger(__name__)
@@ -52,23 +52,6 @@ validations:
 """  # adding checkpoint in checkpoints dir
 
 print("your yaml config is:\n" + yaml_config)
-
-
-def get_assetNames(config, context):
-    assets = context.get_available_data_asset_names()
-    asset_names = []
-    print(context)
-    print(config)
-    print(assets)
-    try:
-        for db_asset_name in assets[config.datasource_name]['default_inferred_data_connector_name']:
-            db, name = db_asset_name.split('.')
-            if db == config.schema:  # which is our default db
-                asset_names.append(name)
-        return asset_names
-    except:
-        print("Data source is not created , please create your datasource or make sure you named you passed it correctly")
-
 
 if True:
     my_checkpoint = context.test_yaml_config(yaml_config=yaml_config)

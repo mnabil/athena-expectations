@@ -9,7 +9,7 @@ import json
 import argparse
 import logging
 import sys
-from utils import CustomArgParser, get_assetNames
+from utils import CustomArgParser
 
 # logging config
 logger = logging.getLogger(__name__)

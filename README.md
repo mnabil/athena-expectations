@@ -3,12 +3,15 @@ A component for QA-ing Athena Downstream Data sources, outputs &amp; deliveries 
 
 
 ### Workflow (a set of simple steps)
-1) configure your aws connections inside config.cfg 
-2) create data source config to connect to AWS Athena
-3) create expectations config for your athena assets
-4) create checkpoints config for those suites 
-5) run our checkpoints! 
+1) configure your AWS connection (using aws sso , or source your secret_key and sceret_key_id into your env)
 
+2) create data source config to connect to AWS Athena
+
+3) create expectations suites for your athena assets
+
+4) create checkpoints config for those suites 
+
+5) run our checkpoints! 
 
 ### 1) How do I get set up? ###
 * Run `python3 -m venv venvs/athena-expectations && source venvs/athena-expectations/bin/activate`
